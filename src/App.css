@@ -1,22 +1,220 @@
-.App {
-  text-align: center;
+.home-content {
+    display: flex;
 }
 
-.App-logo {
-  height: 40vmin;
+/************* 
+NAVBAR
+*************/
+
+.navbar {
+    overflow: hidden;
+    background-color: #333;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.navbar .solo-nav-btn {
+    float: right;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
 }
 
-.App-link {
-  color: #09d3ac;
+.navbar button:hover {
+    background-color: red;
+}
+
+.navbar form {
+    float: right;
+    padding-top: 6px
+}
+
+.navbar form input[type="text"], .navbar form input[type="password"] {
+    font-size: 14px;
+    outline: none;
+    color: #333;
+    padding: 7px 8px;
+    margin-left: 2px;
+}
+
+.navbar form input[type="submit"] {
+    font-size: 14px;
+    border: 1px solid white;
+    outline: none;
+    color: white;
+    padding: 8px 10px;
+    background-color: inherit;
+    margin-left: 2px;
+    margin-right: 5px;
+}
+
+.navbar form input[type="submit"]:hover {
+    border-color: red;
+    background-color: red;
+}
+
+.navbar p {
+    float: left;
+}
+
+.navbar img {
+    width: 50px;
+    float: left;
+}
+
+.dropdown {
+    float: right;
+    overflow: hidden;
+}
+
+.dropdown .dropdown-btn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+}
+
+.dropdown:hover .dropdown-btn {
+    background-color: red;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.login-action-nav {
+    display:flex;
+    float:right;
+}
+
+/************* 
+TOP POSTS
+*************/
+
+.carousel-container {
+    height: 500px;
+    width: 100%;
+    background-color: #000;
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.carousel-preview {
+    width: 75%;
+    height: 100%;
+    background-color: #333;
+}
+
+.carousel-list {
+    height: 100%;
+    width:25%;
+    background-color: #ddd;
+}
+
+/************* 
+POST LIST
+*************/
+
+.post-container {
+    padding: 25px;
+    width: 70%;
+}
+
+.post-card {
+    padding: 5px;
+    margin-bottom: 15px;
+    background-color: #ddd;
+    display: flex;
+    width: 100%;
+}
+
+.post-card img {
+    width: 300px;
+}
+
+
+.post-preview {
+    padding-left: 15px;
+}
+
+/************* 
+ADMIN PAGE
+*************/
+
+.admin-page-container {
+    display: flex;
+}
+
+.admin-posts {
+    padding: 25px;
+    width: 65%;
+}
+
+.admin-info {
+    padding: 20px;
+    background-color: #ddd;
+    width:25%;
+}
+
+.admin-title {
+    display: flex;
+}
+
+.admin-title img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+/************* 
+USER PAGE
+*************/
+
+.user-page-container {
+    display: flex;
+}
+
+.user-posts {
+    padding: 25px;
+    width: 65%;
+}
+
+.user-info {
+    padding: 20px;
+    background-color: #ddd;
+    width:25%;
+}
+
+.user-title {
+    display: flex;
+}
+
+.user-title img {
+    width: 100px;
+    border-radius: 50%;
 }

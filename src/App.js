@@ -1,26 +1,70 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux';
+import { getLoggedUser } from './actions/userActions'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Header from './components/Header';
+import TopPosts from './components/TopPosts';
+import PostList from './components/PostList';
+import Sidebar from './components/Sidebar';
+import Signup from './components/Signup';
+import UserPage from './components/UserPage';
+import AdminPage from './components/AdminPage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  componentDidMount() {
+    if(localStorage.getItem('token')) {
+      this.props.getLoggedUser();
+    }
+  }
+
+  render () {
+    return (
+      <Router>
+        <div>
+          <Header />
+          
+          <Switch>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/user-page">
+              {this.props.user.isAdmin
+              ?
+                <AdminPage />
+              :
+                <UserPage />
+              }
+            </Route>
+            <Route path="/">
+              <TopPosts />
+              <div className="home-content">
+                <PostList />
+                <Sidebar />
+              </div>
+            </Route>
+          </Switch>
+
+        </div>
+      </Router>
+    );
+  }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+      user: state.user
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+      getLoggedUser: () => dispatch(getLoggedUser())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
