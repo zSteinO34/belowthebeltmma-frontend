@@ -3,6 +3,11 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/postActions';
 
+////////////////////////////
+//UNSOLVED BUGS
+////////////////////////////
+// on logout from post view page can't map posts anymore in PostList
+
 class PostList extends React.Component {
     componentDidMount() {
        this.props.fetchInitialPosts();

@@ -1,6 +1,5 @@
-import { RECEIVED_POSTS, getAdminPosts } from '../actions/postActions';
+import { RECEIVED_POSTS } from '../actions/postActions';
 import { RECEIVED_SINGLE_POST } from '../actions/postActions';
-import { RECEIVED_ADMIN_POSTS } from '../actions/postActions';
 
 const initialState = {
     allPosts: [],
