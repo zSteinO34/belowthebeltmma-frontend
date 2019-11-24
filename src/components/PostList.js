@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/postActions';
 
@@ -7,15 +8,19 @@ class PostList extends React.Component {
        this.props.fetchInitialPosts();
     }
 
+    handleViewClick = (post_id) => {
+        this.props.history.push(`/post/${post_id}`)
+    }
+
     displayPosts = () => {
-        return this.props.posts.map(post => {
+        return this.props.posts.allPosts.map(post => {
             return (
                 <div className="post-card">
-                    <img src="https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" />
+                    <img src={post.img} />
                     <div className="post-preview">
                         <h2>{post.title}</h2>
                         <p>{post.content}</p>
-                        <button>View Post</button>
+                        <button onClick={() => this.handleViewClick(post.id)}>View Post</button>
                     </div>
                 </div>
             )
@@ -43,4 +48,4 @@ function mapDispatchToProps(dispatch) {
         fetchInitialPosts: () => dispatch(fetchPosts())
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(PostList);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PostList));

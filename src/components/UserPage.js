@@ -4,18 +4,20 @@ import { API } from '../constants';
 import { withRouter } from 'react-router';
 
 class UserPage extends React.Component {
+    handleViewClick = (post_id) => {
+        this.props.history.push(`/post/${post_id}`)
+    }
 
     renderLikedPosts = () => {
-        console.log(this.props.user.liked_posts)
         if(this.props.user.liked_posts !== undefined){
             return this.props.user.liked_posts.map(post => {
                 return (
                     <div className="post-card">
-                        <img src="https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" />
+                        <img src={post.img} />
                         <div className="post-preview">
                             <h2>{post.title}</h2>
                             <p>{post.content}</p>
-                            <button>View Post</button>
+                            <button onClick={() => this.handleViewClick(post.id)}>View Post</button>
                         </div>
                     </div>
                 )
@@ -24,7 +26,6 @@ class UserPage extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <div className="user-page-container">
                 <div className="user-posts">
@@ -53,10 +54,4 @@ function mapStateToProps(state) {
     }
 }
 
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         getLikedPosts: (user) => dispatch(getLikedPosts(user))
-//     }
-// }
-
-export default connect(mapStateToProps)(UserPage);
+export default connect(mapStateToProps)(withRouter(UserPage));

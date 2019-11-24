@@ -24,7 +24,7 @@ class Signup extends React.Component {
         }
         if(this.state.password === this.state.confirm) {
             this.props.signupUser(newUser)
-            this.props.history.push('/')
+            this.props.history.push('/user-page')
         } else {
             alert("Password and Confirm Password need to match");
         }
@@ -61,4 +61,5 @@ function mapDispatchToProps(dispatch) {
         signupUser: (newUser) => dispatch(addUser(newUser))
     }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Signup));

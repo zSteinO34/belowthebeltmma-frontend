@@ -218,3 +218,15 @@ USER PAGE
     width: 100px;
     border-radius: 50%;
 }
+
+/************* 
+POST VIEW PAGE
+*************/
+
+.post-view-container img {
+    width: 500px;
+}
+
+.post-view-header {
+    display: flex;
+}

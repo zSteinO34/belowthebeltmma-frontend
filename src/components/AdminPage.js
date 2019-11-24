@@ -5,10 +5,13 @@ import { withRouter } from 'react-router';
 
 class AdminPage extends React.Component {
     renderPosts = () => {
-        return this.props.user.posts.map(post => {
+        const adminPosts = this.props.posts.allPosts.filter(post => {
+            return post.user_id === this.props.user.id
+        })
+        return adminPosts.map(post => {
             return (
                 <div className="post-card">
-                    <img src="https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" />
+                    <img src={post.img} />
                     <div className="post-preview">
                         <h2>{post.title}</h2>
                         <p>{post.content}</p>
@@ -20,12 +23,15 @@ class AdminPage extends React.Component {
         })
     }
 
+    handleCreatePostBtn = () => {
+        this.props.history.push('/new-post');
+    }
+
     render() {
-        console.log(this.props.user)
         return (
             <div className="admin-page-container">
                 <div className="admin-posts">
-                    <button>Create New Post</button>
+                    <button onClick={this.handleCreatePostBtn}>Create New Post</button>
                     <h2>Your Posts:</h2> 
                     {this.renderPosts()}
                 </div>
@@ -47,8 +53,9 @@ class AdminPage extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        user: state.user
+        user: state.user,
+        posts: state.posts
     }
 }
 
-export default connect(mapStateToProps)(AdminPage);
+export default connect(mapStateToProps)(withRouter(AdminPage));

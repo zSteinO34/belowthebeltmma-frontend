@@ -48,7 +48,7 @@ class Header extends React.Component {
         return (
             <nav>
                <div className="navbar">
-                    <img src="https://icon-library.net/images/placeholder-icon/placeholder-icon-9.jpg" />
+                    <a href="/"><img src="https://icon-library.net/images/placeholder-icon/placeholder-icon-9.jpg" /></a>
                     <p>Below The Belt MMA</p>
                     { this.checkLoggedIn() 
                     ? 

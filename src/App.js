@@ -14,6 +14,9 @@ import Sidebar from './components/Sidebar';
 import Signup from './components/Signup';
 import UserPage from './components/UserPage';
 import AdminPage from './components/AdminPage';
+import PostView from './components/PostView';
+import CreatePost from './components/CreatePost';
+import Unauthorized from './components/Unauthorized';
 
 class App extends React.Component {
   componentDidMount() {
@@ -39,6 +42,12 @@ class App extends React.Component {
               :
                 <UserPage />
               }
+            </Route>
+            <Route path="/post/:id">
+              <PostView />
+            </Route>
+            <Route path="/new-post">
+              <CreatePost />
             </Route>
             <Route path="/">
               <TopPosts />
