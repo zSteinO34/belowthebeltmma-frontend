@@ -1,16 +1,22 @@
 import React from 'react';
-import { API } from '../constants'
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchSinglePost } from '../actions/postActions';
 import { getPostLikes } from '../actions/likeActions';
 import { createLike } from '../actions/likeActions';
 import { unlikePost } from '../actions/likeActions';
+import { getPostComments } from '../actions/commentActions';
+import { createComment } from '../actions/commentActions';
 
 class PostView extends React.Component {
+    state = {
+        comment: ''
+    }
+
     componentDidMount() {
         this.props.fetchSinglePost(this.props.match.params.id);
         this.props.getPostLikes(this.props.match.params.id);
+        this.props.getPostComments(this.props.match.params.id);
     }
 
     checkLoggedIn = () => {
@@ -20,6 +26,21 @@ class PostView extends React.Component {
         } else {
             return false
         }
+    }
+
+    handleCommentChange = (e) => {
+        this.setState({[e.target.id]: e.target.value});
+    }
+
+    handleNewCommentSubmit = (e) => {
+        e.preventDefault();
+        const newComment = {
+            user_id: this.props.user.id,
+            post_id: this.props.match.params.id,
+            comment_body: this.state.comment
+        }
+        this.props.createComment(newComment);
+        this.setState({comment: ''});
     }
 
     handleLike = () => {
@@ -33,10 +54,6 @@ class PostView extends React.Component {
     handleUnlike = () => {
         const like = this.props.likes.find(like => like.user_id == this.props.user.id)
         this.props.unlikePost(like.id);
-        // console.log('unliking in progress....');
-        // grab like with user ID
-        // send request to backend (/likes/:id) and delete like object
-        // update state to rerender component
     }
 
     isLiked = () => {
@@ -50,13 +67,23 @@ class PostView extends React.Component {
         }
     }
 
+    renderComments = () => {
+        return this.props.comments.map(comment => {
+            return (
+                <div className="comment">
+                    <a>{comment.user.username}</a>
+                    <p>{comment.comment_body}</p>
+                </div>
+            )
+        })
+    }
+
     render() {
          return (
             <div className="post-view-container">
-                <h1>{this.props.posts.singlePost.title}</h1>
                 <div className="post-view-header">
-                    <img src={this.props.posts.singlePost.img} />
-                    <div>
+                    <div className="post-view-links">
+                        <h1>{this.props.posts.singlePost.title}</h1>
                         {this.checkLoggedIn() 
                         ?
                             this.isLiked()
@@ -71,10 +98,26 @@ class PostView extends React.Component {
                             </button>
                         :
                         null}
-                        <p>Share <i className="far fa-share-square"></i></p>
+                        <p>Share Link <i className="far fa-share-square"></i></p>
                     </div>
+                    <img src={this.props.posts.singlePost.img} />
                 </div>
-                <p>{this.props.posts.singlePost.content}</p>
+                <p className="post-view-content">{this.props.posts.singlePost.content}</p>
+                <div className="post-view-comments">
+                    <h3>Comments</h3>
+                    {this.props.comments[0] ? this.renderComments() : <p>Be the first to comment</p>}
+                    {this.checkLoggedIn() 
+                    ?
+                    <div>
+                        <h4>New Comment:</h4>
+                        <form onSubmit={this.handleNewCommentSubmit}>
+                            <textarea onChange={this.handleCommentChange} name="comment" id="comment" value={this.state.comment}></textarea><br />
+                            <input type="submit" value="Comment"></input>
+                        </form>
+                    </div>
+                    :
+                    null}
+                </div>
             </div>
         )
     }
@@ -84,7 +127,8 @@ function mapStateToProps(state) {
     return {
         posts: state.posts,
         user: state.user,
-        likes: state.likes
+        likes: state.likes,
+        comments: state.comments
     }
 }
 
@@ -93,7 +137,9 @@ function mapDispatchToProps(dispatch) {
         fetchSinglePost: (post_id) => dispatch(fetchSinglePost(post_id)),
         getPostLikes: (post_id) => dispatch(getPostLikes(post_id)),
         createLike: (newLike) => dispatch(createLike(newLike)),
-        unlikePost: (like_id) => dispatch(unlikePost(like_id))
+        unlikePost: (like_id) => dispatch(unlikePost(like_id)),
+        getPostComments: (post_id) => dispatch(getPostComments(post_id)),
+        createComment: (newComment) => dispatch(createComment(newComment))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PostView));

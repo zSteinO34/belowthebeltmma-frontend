@@ -1,5 +1,4 @@
 import React from 'react';
-import { API } from '../constants';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { loginUser, logoutUser } from '../actions/userActions';
@@ -33,6 +32,7 @@ class Header extends React.Component {
         localStorage.removeItem("token");
         this.props.logoutUser();
         this.props.history.push('/');
+
     }
 
     checkLoggedIn = () => {
@@ -48,12 +48,11 @@ class Header extends React.Component {
         return (
             <nav>
                <div className="navbar">
-                    <a href="/"><img src="https://icon-library.net/images/placeholder-icon/placeholder-icon-9.jpg" /></a>
-                    <p>Below The Belt MMA</p>
+                    <a href="/"><img src="/below-the-belt-logo.jpg" alt="Logo" /></a>
                     { this.checkLoggedIn() 
                     ? 
                     <div className="login-action-nav">
-                        <p>{this.props.user.username} <i className="fas fa-user-circle"></i></p>
+                        <a href="/user-page">{this.props.user.username} <i className="fas fa-user-circle"></i></a>
                         <button className="solo-nav-btn" onClick={this.handleLogoutBtn}>Logout</button> 
                     </div>
                     :

@@ -32,10 +32,11 @@ class CreatePost extends React.Component {
 
     render() {
         return(
-            <form onSubmit={this.handleSubmit}>
-                <input onChange={this.handleChange} type="text" id="title" name="posts[title]" value={this.state.title} placeholder="Title"></input>
-                <input onChange={this.handleChange} type="text" id="img" name="posts[img]" value={this.state.img} placeholder="Image URL"></input>
-                <textarea onChange={this.handleChange} id="content" name="posts[content]" value={this.state.content}></textarea>
+            <form className="new-post-form" onSubmit={this.handleSubmit}>
+                <input onChange={this.handleChange} type="text" id="title" name="posts[title]" value={this.state.title} placeholder="Title"></input><br />
+                <input onChange={this.handleChange} type="text" id="img" name="posts[img]" value={this.state.img} placeholder="Image URL"></input><br />
+                <label for='content'>Post Content:</label><br />
+                <textarea onChange={this.handleChange} id="content" name="posts[content]" value={this.state.content}></textarea><br />
                 <input type="submit" value="Save Post" />
             </form>
         )

@@ -3,25 +3,17 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/postActions';
 
-////////////////////////////
-//UNSOLVED BUGS
-////////////////////////////
-// on logout from post view page can't map posts anymore in PostList
-
 class PostList extends React.Component {
-    componentDidMount() {
-       this.props.fetchInitialPosts();
-    }
 
     handleViewClick = (post_id) => {
         this.props.history.push(`/post/${post_id}`)
     }
 
     displayPosts = () => {
-        return this.props.posts.allPosts.map(post => {
+        return this.props.posts.allPosts.reverse().map(post => {
             return (
                 <div className="post-card">
-                    <img src={post.img} />
+                    <img src={post.img} alt="Preview" />
                     <div className="post-preview">
                         <h2>{post.title}</h2>
                         <p>{post.content}</p>
@@ -43,14 +35,10 @@ class PostList extends React.Component {
 }
 
 function mapStateToProps(state) {
+
     return {
         posts: state.posts
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        fetchInitialPosts: () => dispatch(fetchPosts())
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PostList));
+export default connect(mapStateToProps)(withRouter(PostList));

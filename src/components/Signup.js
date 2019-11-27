@@ -23,8 +23,7 @@ class Signup extends React.Component {
             bio: this.state.bio
         }
         if(this.state.password === this.state.confirm) {
-            this.props.signupUser(newUser)
-            this.props.history.push('/user-page')
+            this.props.signupUser(newUser, this.props.history);
         } else {
             alert("Password and Confirm Password need to match");
         }
@@ -37,11 +36,13 @@ class Signup extends React.Component {
     render () {
         return (
             <div className="signup-page">
-                <form onSubmit={this.handleSubmit}>
+                <h2>New User Sign Up</h2>
+                <form className="signup-form" onSubmit={this.handleSubmit}>
                     <input onChange={this.handleChange} type="text" id="username" name="user[username]" value={this.state.username} placeholder="Username"></input><br />
                     <input onChange={this.handleChange} type="password" id="password" name="user[password]" value={this.state.password} placeholder="Password"></input><br />
                     <input onChange={this.handleChange} type="password" id="confirm" name="user[confirm]" placeholder="Confirm Password"></input><br />
                     <input onChange={this.handleChange} type="email" id="email" name="user[email]" value={this.state.email} placeholder="Email"></input><br />
+                    <label for='bio'>User Bio:</label><br />
                     <textarea onChange={this.handleChange} name="user[bio]" id="bio" value={this.state.bio}></textarea><br />
                     <input type="submit" value="Sign Up"></input>
                 </form>
@@ -58,7 +59,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        signupUser: (newUser) => dispatch(addUser(newUser))
+        signupUser: (newUser, history) => dispatch(addUser(newUser, history))
     }
 }
 

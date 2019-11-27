@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { API } from '../constants';
 import { withRouter } from 'react-router';
 
 class UserPage extends React.Component {
@@ -13,7 +12,7 @@ class UserPage extends React.Component {
             return this.props.user.liked_posts.map(post => {
                 return (
                     <div className="post-card">
-                        <img src={post.img} />
+                        <img src={post.img} alt="Preview" />
                         <div className="post-preview">
                             <h2>{post.title}</h2>
                             <p>{post.content}</p>
@@ -34,9 +33,10 @@ class UserPage extends React.Component {
                 </div>
                 <div className="user-info">
                     <div className="user-title">
-                        <img src="https://cdn4.vectorstock.com/i/1000x1000/63/63/profile-placeholder-female-avatar-vector-21666363.jpg" />
+                        <img src="https://cdn4.vectorstock.com/i/1000x1000/63/63/profile-placeholder-female-avatar-vector-21666363.jpg" alt="Profile" />
                         <h2>{this.props.user.username}</h2>
                     </div>
+                    <p>{this.props.user.bio}</p>
                     <div className="user-stats">
                         <p>Some:</p>
                         <p>Something:</p>

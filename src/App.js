@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import { getLoggedUser } from './actions/userActions'
+import { fetchPosts } from './actions/postActions';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,12 +17,21 @@ import UserPage from './components/UserPage';
 import AdminPage from './components/AdminPage';
 import PostView from './components/PostView';
 import CreatePost from './components/CreatePost';
-import Unauthorized from './components/Unauthorized';
+import EditPost from './components/EditPost';
 
 class App extends React.Component {
   componentDidMount() {
     if(localStorage.getItem('token')) {
       this.props.getLoggedUser();
+    }
+  }
+
+  checkLoggedIn = () => {
+    const token = localStorage.getItem("token");
+    if(token) {
+        return true
+    } else {
+      return false
     }
   }
 
@@ -41,7 +51,10 @@ class App extends React.Component {
                 <AdminPage />
               :
                 <UserPage />
-              }
+              }  
+            </Route>
+            <Route path="/post/:id/edit">
+              <EditPost />
             </Route>
             <Route path="/post/:id">
               <PostView />
@@ -66,13 +79,15 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-      user: state.user
+      user: state.user,
+      posts: state.posts
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-      getLoggedUser: () => dispatch(getLoggedUser())
+      getLoggedUser: () => dispatch(getLoggedUser()),
+      fetchInitialPosts: () => dispatch(fetchPosts())
   }
 }
 

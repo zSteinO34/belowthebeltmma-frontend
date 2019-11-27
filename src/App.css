@@ -59,7 +59,8 @@ NAVBAR
 }
 
 .navbar img {
-    width: 50px;
+    height: 46px;
+    padding: 2px;
     float: left;
 }
 
@@ -87,7 +88,7 @@ NAVBAR
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 999;
 }
 
 .dropdown-content a {
@@ -110,6 +111,21 @@ NAVBAR
 .login-action-nav {
     display:flex;
     float:right;
+}
+
+.login-action-nav a {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    font-weight: bold;
+    color: red;
+    padding: 14px 16px;
+    background-color: inherit;
+}
+
+.login-action-nav a:hover {
+    color: #fff;
 }
 
 /************* 
@@ -148,6 +164,7 @@ POST LIST
 
 .post-card {
     padding: 5px;
+    border-radius: 3px;
     margin-bottom: 15px;
     background-color: #ddd;
     display: flex;
@@ -156,11 +173,48 @@ POST LIST
 
 .post-card img {
     width: 300px;
+    border-radius: 3px;
 }
 
 
 .post-preview {
     padding-left: 15px;
+}
+
+/************* 
+NEW POST PAGE
+*************/
+
+.new-post-form {
+    padding: 30px;
+    background-color: #ddd;
+    margin: 20px auto;
+    text-align: center;
+    width: 60%;
+    box-shadow: inset 0 0 5px #000000;
+}
+
+.new-post-form input {
+    margin-bottom: 10px;
+    padding: 4px;
+    font-size: 16px;
+    width: 40%;
+}
+
+.new-post-form textarea {
+    margin-bottom: 10px;
+    padding: 4px;
+    font-size: 16px;
+    width: 40%;
+    height: 150px;
+}
+
+.new-post-form input[type="submit"] {
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    background-color: red;
+    border-radius: 3px;
 }
 
 /************* 
@@ -208,6 +262,7 @@ USER PAGE
     padding: 20px;
     background-color: #ddd;
     width:25%;
+    height: 100%;
 }
 
 .user-title {
@@ -216,6 +271,7 @@ USER PAGE
 
 .user-title img {
     width: 100px;
+    max-height: 100px;
     border-radius: 50%;
 }
 
@@ -223,10 +279,158 @@ USER PAGE
 POST VIEW PAGE
 *************/
 
-.post-view-container img {
-    width: 500px;
+.post-view-header {
+    width: 100%;
+    margin: 0 auto 20px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://thumbs.dreamstime.com/t/chain-link-fence-black-12145098.jpg);
+    display: flex;
+}
+        
+.post-view-links {
+    box-shadow: 0 0 12px #fff;
+    flex-grow: 1;
+    margin: 20px 0 20px 20px;
+    background-color: #fff;
+    padding: 30px;
 }
 
-.post-view-header {
-    display: flex;
+.post-view-header img {
+    width:60%;
+    box-shadow: 0 0 12px #fff;
+    max-height: 800px;
+    margin: 20px 20px 20px 0;
+}
+
+
+.post-view-content {
+    margin: 50px 0;
+    padding: 0 50px;
+    letter-spacing: 1.5px;
+    line-height: 20px;
+}
+
+.post-view-comments {
+    padding: 20px 50px;
+    background-color: #ddd;
+}
+
+.comment {
+    width: 80%;
+    background-color: aliceblue;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 2px 2px 3px red;
+}
+
+.comment a {
+    font-weight: bold;
+}
+
+/************* 
+SIGNUP PAGE
+*************/
+
+.signup-page h2 {
+    text-align: center;
+}
+
+.signup-form {
+    padding: 30px;
+    background-color: #ddd;
+    margin: 20px auto;
+    text-align: center;
+    width: 60%;
+    box-shadow: inset 0 0 5px #000000;
+}
+
+.signup-form input {
+    margin-bottom: 10px;
+    padding: 4px;
+    font-size: 16px;
+    width: 40%;
+}
+
+.signup-form textarea {
+    margin-bottom: 10px;
+    padding: 4px;
+    font-size: 16px;
+    width: 40%;
+    height: 150px;
+}
+
+.signup-form input[type="submit"] {
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    background-color: red;
+    border-radius: 3px;
+}
+
+/************* 
+EDIT POST PAGE
+*************/
+
+.edit-post-form {
+    padding: 30px;
+    background-color: #ddd;
+    margin: 20px auto;
+    text-align: center;
+    width: 60%;
+    box-shadow: inset 0 0 5px #000000;
+}
+
+.edit-post-form input {
+    margin-bottom: 10px;
+    padding: 4px;
+    font-size: 16px;
+    width: 40%;
+}
+
+.edit-post-form textarea {
+    margin-bottom: 10px;
+    padding: 4px;
+    font-size: 16px;
+    width: 40%;
+    height: 150px;
+}
+
+.edit-post-form input[type="submit"] {
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    background-color: red;
+    border-radius: 3px;
+}
+/* featured */
+
+div .react-reveal {
+    padding: 30px;
+}
+
+div .react-reveal img {
+    position: absolute;
+    width: 100%;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    z-index: -1
+}
+
+.feature-preview, 
+.feature-preview:hover, 
+.feature-preview:active, 
+.feature-preview:visited, 
+.feature-preview:focus {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 80px;
+}
+
+.feature-link, 
+.feature-link:hover, 
+.feature-link:active, 
+.feature-link:visited, 
+.feature-link:focus {
+    text-decoration: none;
+    color: #fff;
 }

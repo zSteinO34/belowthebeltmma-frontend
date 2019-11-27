@@ -28,7 +28,7 @@ export function removeUserState() {
 }
 
 // thunk
-export function addUser(newUser) {
+export function addUser(newUser, history) {
     return function(dispatch) {
         fetch(`${API}/users`, {
             method: "POST",
@@ -39,8 +39,13 @@ export function addUser(newUser) {
         })
         .then(res => res.json())
         .then(user => {
-            localStorage.setItem("token", user.token)
-            dispatch(authorizeUser(user));
+            if(user.error) {
+                history.push('/')
+            } else {
+                localStorage.setItem("token", user.token);
+                dispatch(authorizeUser(user));
+                history.push('/');
+            }
         })
     }
 }
@@ -56,15 +61,15 @@ export function loginUser(user) {
         })
         .then(res => res.json())
         .then(user => {
-            localStorage.setItem("token", user.token)
+            localStorage.setItem("token", user.token);
             dispatch(authorizeUser(user));
-         
         })
     }
 }
 
 export function getLoggedUser() {
     return function(dispatch){
+        dispatch({type: 'START_AUTH'})
         const token = localStorage.getItem('token')
         fetch(`${API}/current_user`, {
             method: 'GET',

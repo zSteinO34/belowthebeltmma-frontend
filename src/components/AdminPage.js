@@ -1,28 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { API } from '../constants';
 import { withRouter } from 'react-router';
+import { removePost } from '../actions/postActions';
 
 class AdminPage extends React.Component {
+    handleEditClick = (post_id) => {
+        this.props.history.push(`/post/${post_id}/edit`);
+    }
+
     renderPosts = () => {
-        const adminPosts = this.props.posts.allPosts.filter(post => {
+        const adminPosts = this.props.posts.filter(post => {
             return post.user_id === this.props.user.id
         })
         return adminPosts.map(post => {
             return (
-                <div className="post-card">
-                    <img src={post.img} />
+                <div key={post.id} className="post-card">
+                    <img src={post.img} alt="Preview" />
                     <div className="post-preview">
                         <h2>{post.title}</h2>
                         <p>{post.content}</p>
-                        <button>Edit Post</button>
-                        <button>Delete Post</button>
+                        <button onClick={() => this.handleEditClick(post.id)}>Edit Post</button>
+                        <button onClick={() => this.props.removePost(post.id)} >Delete Post</button>
                     </div>
                 </div>
             )
         })
     }
-
+    // 
     handleCreatePostBtn = () => {
         this.props.history.push('/new-post');
     }
@@ -37,7 +41,7 @@ class AdminPage extends React.Component {
                 </div>
                 <div className="admin-info">
                     <div className="admin-title">
-                        <img src="https://cdn4.vectorstock.com/i/1000x1000/63/63/profile-placeholder-female-avatar-vector-21666363.jpg" />
+                        <img src="https://cdn4.vectorstock.com/i/1000x1000/63/63/profile-placeholder-female-avatar-vector-21666363.jpg" alt="Profile" />
                         <h2>{this.props.user.username}</h2>
                     </div>
                     <div className="admin-stats">
@@ -54,8 +58,14 @@ class AdminPage extends React.Component {
 function mapStateToProps(state) {
     return {
         user: state.user,
-        posts: state.posts
+        posts: state.posts.allPosts
     }
 }
 
-export default connect(mapStateToProps)(withRouter(AdminPage));
+function mapDispatchToProps(dispatch) {
+    return {
+        removePost: (post_id) => dispatch(removePost(post_id))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AdminPage));
