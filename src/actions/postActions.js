@@ -1,4 +1,5 @@
 import { API } from '../constants';
+import Swal from 'sweetalert2';
 
 export const START_AUTH = "START_AUTH"
 export const RECEIVED_POSTS = "RECEIVED_POSTS"
@@ -65,6 +66,7 @@ export function fetchPosts() {
         .then(posts => {
             dispatch(receivedPosts(posts));
         })
+        .catch(err => console.log('err', err))
     }
 }
 
@@ -82,22 +84,18 @@ export function createPost(newPost) {
     return function(dispatch) {
         fetch(`${API}/posts`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({post: newPost})
+            body: newPost,
+            contentType: false
         })
         .then(res => res.json())
         .then(data => {
-            const post = data.post
-            dispatch(receivedNewPost(post));
+            dispatch(receivedNewPost(data));
         })
     }
 }
 
 export function updatePost(post_id, updatedPost) {
     return function(dispatch) {
-        console.log('post', updatedPost)
         fetch(`${API}/posts/${post_id}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
@@ -106,6 +104,7 @@ export function updatePost(post_id, updatedPost) {
         .then(res => res.json())
         .then(updatedPost => {
             dispatch(receiveUpdated(updatedPost))
+            dispatch(fetchPosts())
         })
     }
 }
@@ -117,8 +116,22 @@ export function removePost(post_id) {
         })
         .then(res => res.json())
         .then(removedPost => {
-            console.log('post', removedPost);
             dispatch(deletePost(removedPost))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                onOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Pose Deleted'
+              })
         })
     }
 }

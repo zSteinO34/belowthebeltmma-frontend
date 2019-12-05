@@ -1,4 +1,5 @@
 import { API } from '../constants';
+import Swal from 'sweetalert2';
 
 export const RECEIVED_NEW_USER = "RECEIVED_NEW_USER"
 export const LOGIN_USER = "LOGIN_USER"
@@ -32,16 +33,33 @@ export function addUser(newUser, history) {
     return function(dispatch) {
         fetch(`${API}/users`, {
             method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({user: newUser})
+            body: newUser,
+            contentType: false
         })
         .then(res => res.json())
         .then(user => {
             if(user.error) {
-                history.push('/')
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Username must be unique, Username must be more than 3 characters long, Password must be between 5 and 20 characters, Valid email must be entered'
+                });
+                history.push('/signup');
             } else {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    onOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  Toast.fire({
+                    icon: 'success',
+                    title: 'Signed in successfully'
+                  })
                 localStorage.setItem("token", user.token);
                 dispatch(authorizeUser(user));
                 history.push('/');
@@ -50,7 +68,7 @@ export function addUser(newUser, history) {
     }
 }
 
-export function loginUser(user) {
+export function loginUser(user, history) {
     return function(dispatch) {
         fetch(`${API}/auth`, {
             method: "POST",
@@ -61,8 +79,32 @@ export function loginUser(user) {
         })
         .then(res => res.json())
         .then(user => {
-            localStorage.setItem("token", user.token);
-            dispatch(authorizeUser(user));
+            if(user.error) {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Invalid Username or Password'
+                });
+                history.push('/')
+            } else {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    onOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  Toast.fire({
+                    icon: 'success',
+                    title: 'Signed in successfully'
+                  })
+                localStorage.setItem("token", user.token);
+                dispatch(authorizeUser(user));
+                history.push('/user-page');
+            }
         })
     }
 }

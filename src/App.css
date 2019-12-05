@@ -1,3 +1,7 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
 .home-content {
     display: flex;
 }
@@ -13,45 +17,51 @@ NAVBAR
 
 .navbar .solo-nav-btn {
     float: right;
-    font-size: 16px;
+    font-size: 20px;
     border: none;
     outline: none;
     color: white;
-    padding: 14px 16px;
+    padding: 16px 16px;
     background-color: inherit;
+    transition: background-color 0.3s;
 }
 
 .navbar button:hover {
     background-color: red;
+    cursor: pointer;
 }
 
 .navbar form {
     float: right;
-    padding-top: 6px
+    padding-top: 8px
 }
 
 .navbar form input[type="text"], .navbar form input[type="password"] {
-    font-size: 14px;
+    font-size: 16px;
     outline: none;
     color: #333;
-    padding: 7px 8px;
+    padding: 8px 8px;
     margin-left: 2px;
 }
 
 .navbar form input[type="submit"] {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: bold;
     border: 1px solid white;
     outline: none;
     color: white;
-    padding: 8px 10px;
+    padding: 10px 10px;
     background-color: inherit;
     margin-left: 2px;
     margin-right: 5px;
+    transition: transform 0.3s, border-color 0.3s, background-color 0.3s;
 }
 
 .navbar form input[type="submit"]:hover {
+    cursor: pointer;
     border-color: red;
     background-color: red;
+    transform: scale(0.9);
 }
 
 .navbar p {
@@ -59,7 +69,7 @@ NAVBAR
 }
 
 .navbar img {
-    height: 46px;
+    height: 56px;
     padding: 2px;
     float: left;
 }
@@ -70,16 +80,18 @@ NAVBAR
 }
 
 .dropdown .dropdown-btn {
-    font-size: 16px;
+    font-size: 20px;
     border: none;
     outline: none;
     color: white;
-    padding: 14px 16px;
+    padding: 16px 16px;
     background-color: inherit;
+    transition: background-color 0.3s
 }
 
 .dropdown:hover .dropdown-btn {
     background-color: red;
+    cursor: pointer;
 }
 
 .dropdown-content {
@@ -114,14 +126,15 @@ NAVBAR
 }
 
 .login-action-nav a {
-    font-size: 16px;
+    font-size: 18px;
     border: none;
     outline: none;
     text-decoration: none;
     font-weight: bold;
     color: red;
-    padding: 14px 16px;
+    padding: 18px 16px;
     background-color: inherit;
+    transition: color 0.3s;
 }
 
 .login-action-nav a:hover {
@@ -158,27 +171,71 @@ POST LIST
 *************/
 
 .post-container {
-    padding: 25px;
-    width: 70%;
-}
-
-.post-card {
-    padding: 5px;
-    border-radius: 3px;
-    margin-bottom: 15px;
-    background-color: #ddd;
-    display: flex;
     width: 100%;
 }
 
+.post-container h1 {
+    color: #dfdfdf;
+    margin: 0 0 25px;
+    padding: 25px 50px;
+    background-color: red;
+}
+
+.post-card {
+    border-radius: 3px;
+    margin: 0 auto 15px;
+    background-color: #ddd;
+    display: flex;
+    width: 80%;
+    box-shadow: inset 0 0 5px #000000;
+}
+
 .post-card img {
-    width: 300px;
+    object-fit: cover !important;
+    width: 40%;
+    height: 275px;
     border-radius: 3px;
 }
 
-
 .post-preview {
-    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.post-preview h2 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    width: auto;
+    padding: 15px 20px 0;
+}
+
+.post-preview hr {
+    width: 95%;
+    border-color: red;
+}
+
+.post-preview p {
+    padding: 0 20px;
+    letter-spacing: 1.5px;
+}
+
+.post-preview button {
+    margin-top: 15px;
+    margin-right: 20px;
+    align-self: flex-end;
+    font-size: 105%;
+    width: 120px;
+    letter-spacing: 1.5px;
+    color: red;
+    border: 2px solid red;
+    border-radius: 2px;
+    background-color: transparent;
+    transition: transform 0.3s;
+}
+
+.post-preview button:hover {
+    transform: scale(0.9);
 }
 
 /************* 
@@ -198,15 +255,24 @@ NEW POST PAGE
     margin-bottom: 10px;
     padding: 4px;
     font-size: 16px;
-    width: 40%;
+    width: 90%;
+}
+
+.new-post-form label {
+    float: left;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    font-size: 115%;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 .new-post-form textarea {
     margin-bottom: 10px;
     padding: 4px;
     font-size: 16px;
-    width: 40%;
-    height: 150px;
+    width: 90%;
+    height: 250px;
 }
 
 .new-post-form input[type="submit"] {
@@ -230,11 +296,20 @@ ADMIN PAGE
     width: 65%;
 }
 
+.admin-posts h2 {
+    margin-left: 15px;
+    text-transform: uppercase;
+    font-size: 200%;
+}
+
 .admin-info {
     padding: 20px;
-    background-color: #ddd;
-    width:25%;
+    background-color: #555;
+    color: #fff;
+    width: 30%;
+    box-shadow: -2px 0 2px #ddd;
 }
+
 
 .admin-title {
     display: flex;
@@ -243,6 +318,122 @@ ADMIN PAGE
 .admin-title img {
     width: 100px;
     border-radius: 50%;
+    margin-right: 15px;
+}
+
+.admin-title h2 {
+    padding-top: 15px;
+}
+
+.admin-bio {
+    padding-top: 10px;
+    letter-spacing: 1.5px;
+    padding-bottom: 15px;
+}
+
+.admin-stats {
+    letter-spacing: 1.5px;
+    padding-top: 20px;
+}
+
+.admin-post-card {
+    border-radius: 3px;
+    margin: 0 auto 15px;
+    background-color: #ddd;
+    display: flex;
+    width: 95%;
+    box-shadow: inset 0 0 5px #000000;
+}
+
+.admin-post-card img {
+    object-fit: cover !important;
+    width: 40%;
+    height: 275px;
+    border-radius: 3px;
+}
+
+.admin-post-preview {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.admin-post-preview h2 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    width: auto;
+    font-size: 125%;
+    padding: 15px 20px 0;
+}
+
+.admin-post-preview hr {
+    width: 95%;
+    border-color: red;
+}
+
+.admin-post-preview p {
+    padding: 0 20px;
+    letter-spacing: 1.5px;
+}
+
+.admin-post-preview div {
+    align-self: flex-end;
+    margin-bottom: 15px;
+}
+
+.admin-post-preview .edit-btn {
+    margin-top: 15px;
+    margin-right: 20px;
+    font-size: 100%;
+    width: 125px;
+    letter-spacing: 1.5px;
+    color: blue;
+    border: 2px solid blue;
+    border-radius: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-post-preview .edit-btn:hover {
+    background-color: blue;
+    color: white;
+}
+
+.admin-post-preview .delete-btn {
+    margin-top: 15px;
+    margin-right: 20px;
+    font-size: 100%;
+    width: 145px;
+    letter-spacing: 1.5px;
+    color: red;
+    border: 2px solid red;
+    border-radius: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-post-preview .delete-btn:hover {
+    background-color: red;
+    color: white;
+}
+
+.new-post-btn {
+    margin-top: 15px;
+    margin-left: 15px;
+    font-size: 120%;
+    width: 165px;
+    letter-spacing: 1.5px;
+    color: black;
+    border: 2px solid black;
+    border-radius: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.new-post-btn:hover {
+    background-color: red;
+    color: white;
+    border-color: red;
 }
 
 /************* 
@@ -254,15 +445,22 @@ USER PAGE
 }
 
 .user-posts {
-    padding: 25px;
+    padding: 0 25px;
     width: 65%;
+}
+
+.user-posts h2 {
+    margin-left: 15px;
+    text-transform: uppercase;
+    font-size: 200%;
 }
 
 .user-info {
     padding: 20px;
-    background-color: #ddd;
-    width:25%;
-    height: 100%;
+    background-color: #555;
+    color: #fff;
+    width: 30%;
+    box-shadow: -2px 0 2px #ddd;
 }
 
 .user-title {
@@ -271,13 +469,91 @@ USER PAGE
 
 .user-title img {
     width: 100px;
-    max-height: 100px;
     border-radius: 50%;
+    margin-right: 15px;
 }
 
-/************* 
+.user-title h2 {
+    padding-top: 15px;
+}
+
+.user-bio {
+    padding-top: 10px;
+    letter-spacing: 1.5px;
+    padding-bottom: 15px;
+}
+
+.user-stats {
+    letter-spacing: 1.5px;
+    padding-top: 20px;
+}
+
+.user-post-card {
+    border-radius: 3px;
+    margin: 0 auto 15px;
+    background-color: #ddd;
+    display: flex;
+    width: 95%;
+    box-shadow: inset 0 0 5px #000000;
+}
+
+.user-post-card img {
+    object-fit: cover !important;
+    width: 40%;
+    height: 275px;
+    border-radius: 3px;
+}
+
+.user-post-preview {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.user-post-preview h2 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    width: auto;
+    font-size: 125%;
+    padding: 15px 20px 0;
+}
+
+.user-post-preview hr {
+    width: 95%;
+    border-color: red;
+}
+
+.user-post-preview p {
+    padding-left: 20px;
+    letter-spacing: 1.5px;
+}
+
+.user-post-preview div {
+    align-self: flex-end;
+    margin-bottom: 15px;
+}
+
+.user-post-preview .view-btn {
+    margin-top: 15px;
+    margin-right: 20px;
+    font-size: 100%;
+    width: 145px;
+    letter-spacing: 1.5px;
+    color: red;
+    border: 2px solid red;
+    border-radius: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.user-post-preview .view-btn:hover {
+    background-color: red;
+    color: white;
+}
+
+/**************** 
 POST VIEW PAGE
-*************/
+****************/
 
 .post-view-header {
     width: 100%;
@@ -290,40 +566,156 @@ POST VIEW PAGE
     box-shadow: 0 0 12px #fff;
     flex-grow: 1;
     margin: 20px 0 20px 20px;
-    background-color: #fff;
-    padding: 30px;
+    background-color: #eee;
+    padding: 25px;
+}
+
+.like-btn {
+    margin-top: 20px;
+    font-size: 100%;
+    width: 125px;
+    letter-spacing: 1.5px;
+    color: black;
+    border: 2px solid black;
+    border-radius: 2px;
+    background-color: transparent;
+    outline: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.like-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+.liked-btn {
+    margin-top: 20px;
+    font-size: 100%;
+    width: 125px;
+    letter-spacing: 1.5px;
+    background-color: black;
+    color: white;
+    border-radius: 2px;
+    outline: none;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+.liked-btn:hover {
+    background-color: transparent;
+    border: 2px solid black;
+    color: black;
+}
+
+.share-link {
+    margin-top: 20px;
+    font-size: 100%;
+    width: 125px;
+    cursor: pointer;
+    padding-left: 7px;
+    letter-spacing: 1.5px;
+    color: black;
+    background-color: transparent;
+    outline: none;
+}
+
+.hide-link {
+    margin-top: 20px;
+    font-size: 100%;
+    width: 125px;
+    cursor: pointer;
+    padding-left: 7px;
+    letter-spacing: 1.5px;
+    color: black;
+    background-color: transparent;
+    outline: none;
+    text-decoration: underline;
+}
+
+.url-link {
+    border: 0.25px solid black;
+    padding: 5px;
+    background-color: #ddd;
 }
 
 .post-view-header img {
     width:60%;
+    min-width: 60%;
     box-shadow: 0 0 12px #fff;
     max-height: 800px;
     margin: 20px 20px 20px 0;
 }
 
-
 .post-view-content {
     margin: 50px 0;
-    padding: 0 50px;
+    padding: 0 175px;
     letter-spacing: 1.5px;
     line-height: 20px;
+    white-space: pre-wrap;
 }
 
 .post-view-comments {
-    padding: 20px 50px;
+    padding: 20px 75px;
     background-color: #ddd;
 }
 
-.comment {
-    width: 80%;
-    background-color: aliceblue;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 2px 2px 3px red;
+.post-view-comments h3 {
+    font-size: 150%;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-.comment a {
+.post-view-comments h4 {
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    margin-top: 40px;
+}
+
+.post-view-comments textarea {
+    width: 500px;
+    height: 100px;
+}
+
+.comment {
+    width: 90%;
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: inset 0 0 5px #333;
+}
+
+.comment h5 {
+    margin: 0;
+    letter-spacing: 1.5px;
+    font-size: 125%;
     font-weight: bold;
+}
+
+.comment p {
+    letter-spacing: 1.5px;
+    margin-left: 15px;
+}
+
+.comment hr {
+    width: 20%;
+    border-color: #333;
+    margin-left: 0;
+}
+
+.comment-btn {
+    margin: 15px 0 50px;
+    font-size: 100%;
+    width: 145px;
+    letter-spacing: 1.5px;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.comment-btn:hover {
+    background-color: #333;
+    color: white;
 }
 
 /************* 
@@ -375,23 +767,42 @@ EDIT POST PAGE
     background-color: #ddd;
     margin: 20px auto;
     text-align: center;
+    display: flex;
     width: 60%;
     box-shadow: inset 0 0 5px #000000;
 }
 
-.edit-post-form input {
-    margin-bottom: 10px;
-    padding: 4px;
-    font-size: 16px;
-    width: 40%;
+.edit-form-fields {
+    width: 70%;
 }
 
-.edit-post-form textarea {
+.edit-form-fields label {
+    float: left;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    font-size: 115%;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.edit-form-tags {
+    width: 20%;
+    padding-top: 15px;
+}
+
+.edit-form-fields input {
     margin-bottom: 10px;
     padding: 4px;
     font-size: 16px;
-    width: 40%;
-    height: 150px;
+    width: 90%;
+}
+
+.edit-form-fields textarea {
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 16px;
+    width: 90%;
+    height: 300px;
 }
 
 .edit-post-form input[type="submit"] {
@@ -433,4 +844,66 @@ div .react-reveal img {
 .feature-link:focus {
     text-decoration: none;
     color: #fff;
+}
+
+.feature-preview p {
+    width: 50%;
+    margin-bottom: 45px;
+}
+
+.feature-preview h1 {
+    width: 50%;
+}
+
+.feature-preview a {
+    font-size: 125%;
+    padding: 5px 25px;
+    border: 3px solid #fff;
+    border-radius: 3px;
+    color: #fff;
+    text-decoration: none;    
+    transition: border-color 0.3s, color 0.3s, background-color 0.3s;
+}
+
+.feature-preview a:hover {
+    color: red;
+    border-color: #fff;
+    background-color: #fff
+}
+
+.feature-link img {
+    min-width: 100%;
+}
+
+/* tags */
+
+.tag {
+    color: #777;
+    border: 2px solid #777;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.tag:hover {
+    transform: scale(0.9)
+}
+
+.tag-clicked {
+    cursor: pointer;
+    border-radius: 3px;
+    color: #fff;
+    background-color: green;
+    border: 2px solid green;
+    transition: transform 0.2s;
+}
+
+.tag-clicked:hover {
+    transform: scale(0.9)
+}
+
+.filter-header {
+    margin-left: 120px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }

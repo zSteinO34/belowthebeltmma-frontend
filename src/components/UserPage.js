@@ -1,4 +1,5 @@
 import React from 'react';
+import { API } from '../constants';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
@@ -7,16 +8,28 @@ class UserPage extends React.Component {
         this.props.history.push(`/post/${post_id}`)
     }
 
-    renderLikedPosts = () => {
+    renderLikedPosts = () => {  
         if(this.props.user.liked_posts !== undefined){
-            return this.props.user.liked_posts.map(post => {
+            const allLikedPosts = this.props.posts.allPosts.filter(post => {
+                return this.props.user.liked_posts.find(likedPost => {
+                    return post.id == likedPost.id
+                })
+            })
+            return allLikedPosts.map(post => {
                 return (
-                    <div className="post-card">
-                        <img src={post.img} alt="Preview" />
-                        <div className="post-preview">
+                    <div className="user-post-card">
+                        {post.header_img 
+                            ?
+                            <img src={`${API}/${post.header_img}`} alt="Profile" />
+                            :
+                            <img src="https://cdn4.vectorstock.com/i/1000x1000/63/63/profile-placeholder-female-avatar-vector-21666363.jpg" alt="Profile" />
+                        }
+                        <div className="user-post-preview">
                             <h2>{post.title}</h2>
-                            <p>{post.content}</p>
-                            <button onClick={() => this.handleViewClick(post.id)}>View Post</button>
+                            <p>{post.content.slice(0, 200) + '...'}</p>
+                            <div>
+                                <button className="view-btn" onClick={() => this.handleViewClick(post.id)}>View Post</button>
+                            </div>
                         </div>
                     </div>
                 )
@@ -33,15 +46,16 @@ class UserPage extends React.Component {
                 </div>
                 <div className="user-info">
                     <div className="user-title">
-                        <img src="https://cdn4.vectorstock.com/i/1000x1000/63/63/profile-placeholder-female-avatar-vector-21666363.jpg" alt="Profile" />
+                        {this.props.user.avatar 
+                            ?
+                            <img src={`${API}/${this.props.user.avatar}`} alt="Profile" />
+                            :
+                            <img src="https://cdn4.vectorstock.com/i/1000x1000/63/63/profile-placeholder-female-avatar-vector-21666363.jpg" alt="Profile" />
+                        }
                         <h2>{this.props.user.username}</h2>
                     </div>
-                    <p>{this.props.user.bio}</p>
-                    <div className="user-stats">
-                        <p>Some:</p>
-                        <p>Something:</p>
-                        <p>Something Something:</p>
-                    </div>
+                    <p className="user-bio">{this.props.user.bio}</p>
+                    <hr/>
                 </div>
             </div>
         )
@@ -50,7 +64,8 @@ class UserPage extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        user: state.user
+        user: state.user,
+        posts: state.posts
     }
 }
 

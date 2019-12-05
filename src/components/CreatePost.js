@@ -2,41 +2,83 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { createPost } from '../actions/postActions';
+import Swal from 'sweetalert2';
+
 
 class CreatePost extends React.Component {
     state = {
         title: '',
-        img: '',
+        header_img: '',
         content: ''
+    }
+
+    componentDidMount() {
+        if(!localStorage.getItem('token') || !this.props.user.isAdmin) {
+            this.props.history.push('/');
+        }
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        if(!this.state.title || !this.state.content || !this.state.header_img) {
+            Swal.fire({
+                icon: 'error',
+                text: 'A Post must have valid title, image and content'
+            });
+            this.setState({
+                title: '',
+                header_img: null,
+                content: ''
+            })
+        } else {
+            const postData = new FormData()
+            postData.append('post[title]', this.state.title)
+            postData.append('post[header_img]', this.state.header_img)
+            postData.append('post[content]', this.state.content)
+            postData.append('post[user_id]', this.props.user.id)
+            this.props.createPost(postData);
+            this.props.history.push('/user-page');
+            this.setState({
+                title: '',
+                header_img: null,
+                content: ''
+            })
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                onOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Post Created'
+              })
+        }
     }
 
     handleChange = (e) => {
         this.setState({[e.target.id]: e.target.value});
     }
 
-    handleSubmit = (e) => {
+    handleUpload = (e) => {
         e.preventDefault()
-        const newPost = {
-            title: this.state.title,
-            img: this.state.img,
-            content: this.state.content,
-            user_id: this.props.user.id
-        }
-        if(this.state.title !== '') {
-            this.props.createPost(newPost);
-            this.props.history.push('/user-page');
-        } else {
-            alert("Post needs a title");
-        }
+        this.setState({header_img: e.target.files[0]})
     }
 
     render() {
         return(
             <form className="new-post-form" onSubmit={this.handleSubmit}>
-                <input onChange={this.handleChange} type="text" id="title" name="posts[title]" value={this.state.title} placeholder="Title"></input><br />
-                <input onChange={this.handleChange} type="text" id="img" name="posts[img]" value={this.state.img} placeholder="Image URL"></input><br />
+                <label htmlFor="title">Post Title:</label><br />
+                    <input onChange={this.handleChange} type="text" id="title" name="posts[title]" value={this.state.title} placeholder="Title"></input><br />
+                <label htmlFor="header_img">Post Image:</label><br />
+                    <input onChange={this.handleUpload} type="file" id="header_img" name="posts[header_img]"></input><br />
                 <label for='content'>Post Content:</label><br />
-                <textarea onChange={this.handleChange} id="content" name="posts[content]" value={this.state.content}></textarea><br />
+                    <textarea onChange={this.handleChange} id="content" name="posts[content]" value={this.state.content}></textarea><br />
                 <input type="submit" value="Save Post" />
             </form>
         )

@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "activestorage": "^5.2.4",
     "react": "^16.12.0",
+    "react-activestorage-provider": "^0.8.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
     "react-reveal": "^1.2.2",
@@ -13,7 +15,9 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "sweetalert2": "^9.4.3",
+    "sweetalert2-react-content": "^2.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

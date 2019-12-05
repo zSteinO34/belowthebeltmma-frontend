@@ -18,6 +18,7 @@ import AdminPage from './components/AdminPage';
 import PostView from './components/PostView';
 import CreatePost from './components/CreatePost';
 import EditPost from './components/EditPost';
+import FilterPage from './components/FilterPage';
 
 class App extends React.Component {
   componentDidMount() {
@@ -52,6 +53,30 @@ class App extends React.Component {
               :
                 <UserPage />
               }  
+            </Route>
+            <Route path="/ufc">
+              <FilterPage />
+            </Route>
+            <Route path="/mma">
+              <FilterPage />
+            </Route>
+            <Route path="/bjj">
+              <FilterPage />
+            </Route>
+            <Route path="/boxing">
+              <FilterPage />
+            </Route>
+            <Route path="/kickboxing">
+              <FilterPage />
+            </Route>
+            <Route path="/gambling">
+              <FilterPage />
+            </Route>
+            <Route path="/entertainment">
+              <FilterPage />
+            </Route>
+            <Route path="/misc">
+              <FilterPage />
             </Route>
             <Route path="/post/:id/edit">
               <EditPost />

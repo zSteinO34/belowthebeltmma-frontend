@@ -1,4 +1,5 @@
 import React from 'react';
+import { API } from '../constants'
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchSinglePost } from '../actions/postActions';
@@ -10,6 +11,7 @@ import { createComment } from '../actions/commentActions';
 
 class PostView extends React.Component {
     state = {
+        showLink: false,
         comment: ''
     }
 
@@ -28,6 +30,14 @@ class PostView extends React.Component {
         }
     }
 
+    showLink = () => {
+        this.setState({showLink: true})
+    }
+
+    hideLink = () => {
+        this.setState({showLink: false})
+    }
+
     handleCommentChange = (e) => {
         this.setState({[e.target.id]: e.target.value});
     }
@@ -37,7 +47,8 @@ class PostView extends React.Component {
         const newComment = {
             user_id: this.props.user.id,
             post_id: this.props.match.params.id,
-            comment_body: this.state.comment
+            comment_body: this.state.comment,
+            user: this.props.user
         }
         this.props.createComment(newComment);
         this.setState({comment: ''});
@@ -71,7 +82,8 @@ class PostView extends React.Component {
         return this.props.comments.map(comment => {
             return (
                 <div className="comment">
-                    <a>{comment.user.username}</a>
+                    <h5>{comment.user.username}:</h5>
+                    <hr/>
                     <p>{comment.comment_body}</p>
                 </div>
             )
@@ -84,39 +96,49 @@ class PostView extends React.Component {
                 <div className="post-view-header">
                     <div className="post-view-links">
                         <h1>{this.props.posts.singlePost.title}</h1>
+                        <hr/>
                         {this.checkLoggedIn() 
                         ?
                             this.isLiked()
                             ? 
-                            <button onClick={this.handleUnlike}> 
+                            <button className="liked-btn" onClick={this.handleUnlike}> 
                                 Liked
                             </button>
                             :
-                            <button onClick={this.handleLike}>
+                            <button className="like-btn" onClick={this.handleLike}>
                                 {this.props.likes.length ? `${this.props.likes.length} ` : null} 
                                 Like <i className="far fa-thumbs-up"></i>
                             </button>
                         :
                         null}
-                        <p>Share Link <i className="far fa-share-square"></i></p>
+                        {!this.state.showLink 
+                            ? 
+                            <p className="share-link" onClick={this.showLink}>Share Link <i className="far fa-share-square"></i></p> 
+                            : 
+                            <div>
+                                <p className="hide-link" onClick={this.hideLink}>Hide Link</p>
+                                <p className="url-link">{window.location.href}</p>    
+                            </div>
+                        }
                     </div>
-                    <img src={this.props.posts.singlePost.img} />
+                    <img src={`${API}/${this.props.posts.singlePost.header_img}`} />
                 </div>
                 <p className="post-view-content">{this.props.posts.singlePost.content}</p>
                 <div className="post-view-comments">
                     <h3>Comments</h3>
                     {this.props.comments[0] ? this.renderComments() : <p>Be the first to comment</p>}
                     {this.checkLoggedIn() 
-                    ?
-                    <div>
-                        <h4>New Comment:</h4>
-                        <form onSubmit={this.handleNewCommentSubmit}>
-                            <textarea onChange={this.handleCommentChange} name="comment" id="comment" value={this.state.comment}></textarea><br />
-                            <input type="submit" value="Comment"></input>
-                        </form>
-                    </div>
-                    :
-                    null}
+                        ?
+                        <div>
+                            <h4>New Comment</h4>
+                            <form onSubmit={this.handleNewCommentSubmit}>
+                                <textarea onChange={this.handleCommentChange} name="comment" id="comment" value={this.state.comment}></textarea><br />
+                                <input className="comment-btn" type="submit" value="Comment"></input>
+                            </form>
+                        </div>
+                        :
+                        null
+                    }
                 </div>
             </div>
         )
