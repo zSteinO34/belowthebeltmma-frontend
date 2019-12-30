@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { createPost } from '../actions/postActions';
 import Swal from 'sweetalert2';
+import TextEditor from './TextEditor';
 
 
 class CreatePost extends React.Component {
@@ -78,7 +79,8 @@ class CreatePost extends React.Component {
                 <label htmlFor="header_img">Post Image:</label><br />
                     <input onChange={this.handleUpload} type="file" id="header_img" name="posts[header_img]"></input><br />
                 <label for='content'>Post Content:</label><br />
-                    <textarea onChange={this.handleChange} id="content" name="posts[content]" value={this.state.content}></textarea><br />
+                    <TextEditor />
+                    {/* <textarea onChange={this.handleChange} id="content" name="posts[content]" value={this.state.content}></textarea><br /> */}
                 <input type="submit" value="Save Post" />
             </form>
         )

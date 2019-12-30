@@ -17,7 +17,8 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.4.1",
     "sweetalert2": "^9.4.3",
-    "sweetalert2-react-content": "^2.0.2"
+    "sweetalert2-react-content": "^2.0.2",
+    "trix": "^1.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
