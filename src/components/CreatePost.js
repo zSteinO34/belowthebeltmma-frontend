@@ -3,10 +3,15 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { createPost } from '../actions/postActions';
 import Swal from 'sweetalert2';
-import TextEditor from './TextEditor';
+import Trix from "trix";
 
 
 class CreatePost extends React.Component {
+    constructor() {
+        super()
+        this.trixInput = React.createRef()
+    }
+
     state = {
         title: '',
         header_img: '',
@@ -17,6 +22,10 @@ class CreatePost extends React.Component {
         if(!localStorage.getItem('token') || !this.props.user.isAdmin) {
             this.props.history.push('/');
         }
+        this.trixInput.current.addEventListener("trix-change", e => {
+            console.log(this.state.content);
+            this.setState({content: e.target.textContent});
+        });
     }
 
     handleSubmit = (e) => {
@@ -71,6 +80,10 @@ class CreatePost extends React.Component {
         this.setState({header_img: e.target.files[0]})
     }
 
+    handleContentChange = (e) => {
+        // handle change to update state in trix editor
+    }
+
     render() {
         return(
             <form className="new-post-form" onSubmit={this.handleSubmit}>
@@ -79,7 +92,16 @@ class CreatePost extends React.Component {
                 <label htmlFor="header_img">Post Image:</label><br />
                     <input onChange={this.handleUpload} type="file" id="header_img" name="posts[header_img]"></input><br />
                 <label for='content'>Post Content:</label><br />
-                    <TextEditor />
+                    <div>
+                        <input 
+                            type="hidden" 
+                            id="content"
+                            onChange={this.handleChange}
+                            name="posts[content]" 
+                            value={this.state.content}
+                        />
+                        <trix-editor input="content" ref={this.trixInput} />
+                    </div>
                     {/* <textarea onChange={this.handleChange} id="content" name="posts[content]" value={this.state.content}></textarea><br /> */}
                 <input type="submit" value="Save Post" />
             </form>
